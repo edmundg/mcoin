@@ -9,13 +9,13 @@ import {
     pool
 } from 'melonjs';
 
-import 'index.css';
+import clases from './index.css?inline'
 
-import TitleScreen from 'js/stage/title.js';
-import PlayScreen from 'js/stage/play.js';
-import PlayerEntity from 'js/renderables/player.js';
+import TitleScreen from './js/stage/title.js';
+import PlayScreen from './js/stage/play.js';
+import PlayerEntity from './js/renderables/player.js';
 
-import DataManifest from 'manifest.js';
+import DataManifest from './manifest.js';
 
 
 device.onReady(() => {
@@ -24,14 +24,6 @@ device.onReady(() => {
     if (!video.init(1218, 562, {parent : "screen", scale : "auto"})) {
         alert("Your browser does not support HTML5 canvas.");
         return;
-    }
-
-    // initialize the debug plugin in development mode.
-    if (process.env.NODE_ENV === 'development') {
-        import("@melonjs/debug-plugin").then((debugPlugin) => {
-            // automatically register the debug panel
-            utils.function.defer(plugin.register, this, debugPlugin.DebugPanelPlugin, "debugPanel");
-        });
     }
 
     // Initialize the audio.
@@ -50,6 +42,6 @@ device.onReady(() => {
         pool.register("mainPlayer", PlayerEntity);
 
         // Start the game.
-        state.change(state.PLAY);
+        state.change(state.PLAY, false);
     });
 });
